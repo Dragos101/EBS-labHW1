@@ -1,0 +1,4 @@
+Time to generate 10 publications without threads :0.00011750007979571819 
+Time to generate 10 subscriptions without threads :0.00011739996261894703 
+Time to generate 200 publications without threads :0.0014363001100718975 
+Time to generate 200 subscriptions without threads :0.0016302999574691057 

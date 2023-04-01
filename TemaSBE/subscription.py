@@ -1,4 +1,6 @@
 import random
+import time
+
 
 class Subscription: 
     subscription_structure = {
@@ -20,6 +22,7 @@ class Subscription:
         self.subscription_operator_freq = subscription_operator_freq
 
     def generate_objects(self, n):
+        start_time = time.perf_counter()
         objects = []
         for i in range(n):
             x = []
@@ -49,4 +52,11 @@ class Subscription:
                     obj.append(round(random.uniform(value['values'][0], value['values'][1]), 2))
                 x.append({f'{obj[0]}, {obj[1]}, {obj[2]}'})
             objects.append(x)
+
+        end_time = time.perf_counter()
+        f = open("TemaSBE/time_operations.txt", "a")
+        print(f)
+        f.write(f'Time to generate {n} subscriptions without threads :{end_time - start_time} \n')
+        f.close()
+
         return objects

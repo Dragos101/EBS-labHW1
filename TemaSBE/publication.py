@@ -1,5 +1,6 @@
 #clasa de publicatii
 import random
+import time
 
 class Publication:
     #constrangerile pentru obiectele de tip publicatie
@@ -14,6 +15,7 @@ class Publication:
     }
 
     def generate_publications(self, n):
+        start_time = time.perf_counter()
         objects = []
         for i in range(n):
             object = {}
@@ -28,6 +30,10 @@ class Publication:
                 else:
                     raise ValueError(f"Unsupported type {type_}")
             objects.append(object)
+        end_time = time.perf_counter()
+        f = open("TemaSBE/time_operations.txt", "a")
+        f.write(f'Time to generate {n} publications without threads :{end_time - start_time} \n')
+        f.close()
         return objects
     
   
