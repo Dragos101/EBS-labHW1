@@ -1,7 +1,6 @@
 import random
 import time
 
-
 class Subscription: 
     subscription_structure = {
         "city": {"type": str, 'values': ["Pascani", "Brasov", "Cluj"]},
@@ -55,7 +54,6 @@ class Subscription:
 
         end_time = time.perf_counter()
         f = open("TemaSBE/time_operations.txt", "a")
-        print(f)
         f.write(f'Time to generate {n} subscriptions without threads :{end_time - start_time} \n')
         f.close()
 

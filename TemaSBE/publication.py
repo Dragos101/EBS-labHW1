@@ -2,6 +2,7 @@
 import random
 import time
 
+
 class Publication:
     #constrangerile pentru obiectele de tip publicatie
     publication_structure = {
