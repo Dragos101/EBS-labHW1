@@ -10,22 +10,43 @@ class Subscription:
         "date": {"type": str, 'values': ["1.01.2023", "2.01.2023", "3.01.2023", "4.01.2023"]}
     }
 
-    def __init__(self, subscription_freq):
+    operators_struct = {
+        'numbers': {'variables': ['temp', 'rain', 'wine', 'date'], 'operators': ['=', '<', '>', '>=', '<=']},
+        'not_numbers': {'variables': ['city', 'directions'], 'operators': ['=', '!=']},
+    }
+
+    def __init__(self, subscription_freq, subscription_operator_freq):
         self.subscription_frequency = subscription_freq
+        self.subscription_operator_freq = subscription_operator_freq
 
     def generate_objects(self, n):
         objects = []
         for i in range(n):
-            obj = {}
+            x = []
             for key, value in self.subscription_structure.items():
+                obj = []
                 if key in self.subscription_frequency and self.subscription_frequency[key]['display'] >= self.subscription_frequency[key]['frequency'] * n:
                     continue
+                obj.append(key)
+
+                # se aloca random operatorul
+                if self.subscription_operator_freq[key]['frequency'] != 0 and self.subscription_operator_freq[key]['display'] < self.subscription_operator_freq[key]['frequency'] * n:
+                    obj.append('=')
+                    self.subscription_operator_freq[key]['display'] = self.subscription_operator_freq[key]['display'] + 1
+                elif self.subscription_operator_freq[key]['frequency'] == 0 or self.subscription_operator_freq[key]['frequency'] != 0 and self.subscription_operator_freq[key]['display'] >= self.subscription_operator_freq[key]['frequency'] * n:
+                    if key in self.operators_struct['numbers']['variables']:
+                        obj.append(random.choice(self.operators_struct['numbers']['operators']))
+                    else: 
+                        obj.append(random.choice(self.operators_struct['not_numbers']['operators']))
+
                 self.subscription_frequency[key]['display'] = self.subscription_frequency[key]['display'] + 1
+                # se aloca random valoarea pentru cheie
                 if value['type'] == str:
-                    obj[key] = random.choice(value['values'])
+                    obj.append(random.choice(value['values'])) 
                 elif value['type'] == int:
-                    obj[key] = random.randint(value['values'][0], value['values'][1])
+                    obj.append(random.randint(value['values'][0], value['values'][1])) 
                 elif value['type'] == float:
-                    obj[key] = round(random.uniform(value['values'][0], value['values'][1]), 2)
-            objects.append(obj)
+                    obj.append(round(random.uniform(value['values'][0], value['values'][1]), 2))
+                x.append({f'{obj[0]}, {obj[1]}, {obj[2]}'})
+            objects.append(x)
         return objects

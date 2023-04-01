@@ -13,19 +13,23 @@ class Publication:
         "date": (str, ["1.01.2023", "2.01.2023", "3.01.2023", "4.01.2023"])
     }
 
-    def __init__(self):
-        args = {}
-        for key, value in self.publication_structure.items():
-            type_, choices = value
-            if type_ == int:
-                args[key] = random.randint(*choices)
-            elif type_ == float:
-                args[key] = round(random.uniform(*choices), 2)
-            elif type_ == str:
-                args[key] = random.choice(choices)
-            else:
-                raise ValueError(f"Unsupported type {type_}")
-        self.__dict__ = args
+    def generate_publications(self, n):
+        objects = []
+        for i in range(n):
+            object = {}
+            for key, value in self.publication_structure.items():
+                type_, choices = value
+                if type_ == int:
+                    object[key] = random.randint(*choices)
+                elif type_ == float:
+                    object[key] = round(random.uniform(*choices), 2)
+                elif type_ == str:
+                    object[key] = random.choice(choices)
+                else:
+                    raise ValueError(f"Unsupported type {type_}")
+            objects.append(object)
+        return objects
+    
   
     def __str__(self):
         return f"({self.stationid}, {self.city}, {self.temp}, {self.rain}, {self.wind}, {self.direction}, {self.date})"
