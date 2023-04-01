@@ -7,6 +7,15 @@ import subscription as s
 # publicatie = p.Publication()
 # print(publicatie)
 
-subscriptii = s.Subscription().generate_objects(10)
+subscription_frequency = {
+    "city": {"frequency": 0.9, 'display': 0},
+    "temp": {"frequency": 0.5, 'display': 0},
+    "rain": {"frequency": 0.3, 'display': 0},
+    "wind": {"frequency": 0.8, 'display': 0},
+    "direction": {"frequency": 0, 'display': 0},
+    "date": {"frequency": 0.8, 'display': 0}
+}
+
+subscriptii = s.Subscription(subscription_frequency).generate_objects(10)
 for x in subscriptii:
     print(x, "\n")
