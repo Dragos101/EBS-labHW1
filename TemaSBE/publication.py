@@ -1,7 +1,7 @@
 #clasa de publicatii
 import random
 import time
-
+import threading
 
 class Publication:
     #constrangerile pentru obiectele de tip publicatie
@@ -37,6 +37,39 @@ class Publication:
         f.close()
         return objects
     
+    def generate_publications_thread(self, n):
+        start_time = time.perf_counter()
+        objects = []
+        threads = []
+
+        for i in range(n):
+            thread = threading.Thread(target=self.generate_publication, args=(objects,))
+            thread.start()
+            threads.append(thread)
+
+        for thread in threads:
+            thread.join()
+
+        end_time = time.perf_counter()
+        f = open("TemaSBE/time_operations.txt", "a")
+        f.write(f'Time to generate {n} publications with threads :{end_time - start_time} \n')
+        f.close()
+
+        return objects
+
+    def generate_publication(self, objects):
+        object = {}
+        for key, value in self.publication_structure.items():
+            type_, choices = value
+            if type_ == int:
+                object[key] = random.randint(*choices)
+            elif type_ == float:
+                object[key] = round(random.uniform(*choices), 2)
+            elif type_ == str:
+                object[key] = random.choice(choices)
+            else:
+                raise ValueError(f"Unsupported type {type_}")
+        objects.append(object)
   
     def __str__(self):
         return f"({self.stationid}, {self.city}, {self.temp}, {self.rain}, {self.wind}, {self.direction}, {self.date})"
