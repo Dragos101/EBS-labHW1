@@ -14,6 +14,13 @@
   * Timp de generare 1000 publicatii fara thread-uri :0.003995800158008933; 
   * Timp de generare 1000 publicatii cu thread-uri: 0.2095170000102371;
   
+  * Timp de generare 100 subscriptii fara thread-uri:0.0010016999999999943 
+  * Timp de generare 1000 subscriptii cu thread-uri:0.015395500000000006 
+  
+  * Timp de generare 1000 subscriptii fara thread-uri :0.011302999999999994;
+  * Timp de generare 1000 subscriptii cu thread-uri:0.1448662;
+  
+  
 * Tipurile de procesoare pe care a fost rulat codul sunt:
   * Procesor	Intel(R) Core(TM) i7-8550U CPU @ 1.80GHz   1.99 GHz;
   * AMD Ryzen 9.4900HS;
